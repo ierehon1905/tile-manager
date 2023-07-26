@@ -1,0 +1,5 @@
+{
+  "id": "sand",
+  "color": [194, 178, 128],
+  "friends": ["grass", "sand"]
+}
