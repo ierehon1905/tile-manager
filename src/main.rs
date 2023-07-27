@@ -1,11 +1,11 @@
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 
 use macroquad::{prelude::*, rand::ChooseRandom, ui::root_ui};
 use nanoserde::{DeJson, SerJson};
 
-const TILE_SIZE: f32 = 10.0;
-const MAP_WIDTH: usize = 100;
-const MAP_HEIGHT: usize = 100;
+const TILE_SIZE: f32 = 50.0;
+const MAP_WIDTH: usize = 15;
+const MAP_HEIGHT: usize = 15;
 
 #[derive(Clone, Debug, Default, DeJson, SerJson, PartialEq, Eq)]
 struct TileInfo {
@@ -30,14 +30,24 @@ impl Ord for TileInfo {
 async fn main() {
     // load all jsons in tiles folder
     let mut tiles = BTreeSet::new();
+    let mut images = BTreeMap::new();
     for entry in std::fs::read_dir("tiles").unwrap() {
         let entry = entry.unwrap();
         let path = entry.path();
         if path.extension().unwrap() == "json" {
             let json = load_string(path.to_str().unwrap()).await.unwrap();
+            // load image in assets folder with the same name
             let tile: TileInfo = DeJson::deserialize_json(&json).unwrap();
-            // tiles.push(tile);
+            let id = tile.id.clone();
             tiles.insert(tile);
+
+            // let image_path = path.with_extension("png");
+            // path at assets folder and png extension
+            let image_path = format!("assets/{}.png", id);
+
+            let image = load_texture(&image_path).await.unwrap();
+
+            images.insert(id, image);
         }
     }
 
@@ -87,19 +97,34 @@ async fn main() {
                 // draw all possible tiles in one cell in a row
                 for (i, tile_id) in tile_ids.iter().enumerate() {
                     let tile = tiles.iter().find(|tile| tile.id == *tile_id).unwrap();
-                    let tile_color = Color::new(
-                        tile.color.0 as f32 / 255.0,
-                        tile.color.1 as f32 / 255.0,
-                        tile.color.2 as f32 / 255.0,
-                        1.0,
-                    );
-                    draw_rectangle(
-                        tile_x + i as f32 * small_square_size,
-                        tile_y,
-                        small_square_size,
-                        small_square_size,
-                        tile_color,
-                    );
+
+                    if tile_count != 1 {
+                        let tile_color = Color::new(
+                            tile.color.0 as f32 / 255.0,
+                            tile.color.1 as f32 / 255.0,
+                            tile.color.2 as f32 / 255.0,
+                            1.0,
+                        );
+
+                        draw_rectangle(
+                            tile_x + i as f32 * small_square_size,
+                            tile_y,
+                            small_square_size,
+                            small_square_size,
+                            tile_color,
+                        );
+                    } else {
+                        draw_texture_ex(
+                            images.get(tile_id).unwrap(),
+                            tile_x + i as f32 * small_square_size,
+                            tile_y,
+                            WHITE,
+                            DrawTextureParams {
+                                dest_size: Some(vec2(small_square_size, small_square_size)),
+                                ..Default::default()
+                            },
+                        );
+                    }
                 }
             }
         }
