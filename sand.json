@@ -1,0 +1,8 @@
+{
+  "id": "sand",
+  "color": [194, 178, 128],
+  "friends_top": ["sand", "grass"],
+  "friends_right": ["sand", "grass"],
+  "friends_bottom": ["sand", "grass"],
+  "friends_left": ["sand", "grass"]
+}

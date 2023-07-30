@@ -1,5 +1,5 @@
 {
-  "id": "grass",
+  "id": "grass-grass-stone-grass",
   "color": [0, 50, 0],
   "friends_top": [
     "grass",
@@ -13,16 +13,6 @@
     "grass-stone-grass-grass",
     "grass-grass-grass-stone"
   ],
-  "friends_bottom": [
-    "grass",
-    "grass-stone-v",
-    "grass-grass-grass-stone",
-    "grass-grass-stone-grass"
-  ],
-  "friends_left": [
-    "grass",
-    "stone-grass",
-    "stone-grass-grass-grass",
-    "grass-grass-stone-grass"
-  ]
+  "friends_bottom": ["stone-grass", "stone-grass-grass-grass"],
+  "friends_left": ["grass-stone-v", "grass-grass-grass-stone"]
 }

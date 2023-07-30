@@ -1,5 +1,8 @@
 {
   "id": "stone",
   "color": [100, 100, 100],
-  "friends": ["grass", "stone-grass", "stone"]
+  "friends_top": ["stone", "grass-stone-v"],
+  "friends_right": ["stone", "stone-grass"],
+  "friends_bottom": ["stone", "stone-grass-v"],
+  "friends_left": ["stone", "grass-stone"]
 }
