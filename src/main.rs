@@ -1,116 +1,144 @@
 mod generator_loop;
+use base64::{engine::general_purpose, Engine as _};
+use image::GenericImageView;
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::{
+    collections::{BTreeMap, BTreeSet, HashMap},
+    ops::Deref,
+};
 
 use generator_loop::generator_loop;
-use macroquad::{
-    hash,
-    prelude::*,
-    rand::ChooseRandom,
-    ui::{
-        canvas, root_ui,
-        widgets::{self, Button, Group},
-        Skin,
-    },
-};
-use nanoserde::{DeJson, SerJson};
+use macroquad::prelude::*;
+use nanoserde::{DeJson, SerJson, SerJsonState};
 
-const TILE_SIZE: f32 = 50.0;
-const MAP_WIDTH: usize = 9;
-const MAP_HEIGHT: usize = 9;
+const TILE_SIZE: f32 = 16.0;
+const MAP_WIDTH: usize = 36;
+const MAP_HEIGHT: usize = 36;
+
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
+pub struct HexColor(u8, u8, u8);
+
+impl DeJson for HexColor {
+    fn de_json(
+        state: &mut nanoserde::DeJsonState,
+        input: &mut std::str::Chars,
+    ) -> Result<Self, nanoserde::DeJsonErr> {
+        let raw_hex = state.as_string().unwrap();
+        // make cusstom err
+        let r = u8::from_str_radix(&raw_hex[1..3], 16).map_err(|_| nanoserde::DeJsonErr {
+            col: state.col,
+            line: state.line,
+            msg: "invalid hex color".to_string(),
+        })?;
+        let g = u8::from_str_radix(&raw_hex[3..5], 16).map_err(|_| nanoserde::DeJsonErr {
+            col: state.col,
+            line: state.line,
+            msg: "invalid hex color".to_string(),
+        })?;
+        let b = u8::from_str_radix(&raw_hex[5..7], 16).map_err(|_| nanoserde::DeJsonErr {
+            col: state.col,
+            line: state.line,
+            msg: "invalid hex color".to_string(),
+        })?;
+
+        let color = HexColor(r, g, b);
+
+        state.next_tok(input)?;
+
+        Ok(color)
+    }
+}
+
+impl SerJson for HexColor {
+    fn ser_json(&self, d: usize, s: &mut SerJsonState) {
+        let hex = format!(
+            "#{:02x}{:02x}{:02x}",
+            self.0 as u8, self.1 as u8, self.2 as u8
+        );
+
+        s.label(&hex);
+    }
+}
 
 #[derive(Clone, Debug, Default, DeJson, SerJson, PartialEq, Eq)]
 pub struct TileInfo {
-    id: String,
-    color: (u8, u8, u8),
+    name: String,
+    #[nserde(default)]
+    color: HexColor,
     friends_top: Vec<String>,
     friends_right: Vec<String>,
     friends_bottom: Vec<String>,
     friends_left: Vec<String>,
+    slots_top: Vec<String>,
+    slots_right: Vec<String>,
+    slots_bottom: Vec<String>,
+    slots_left: Vec<String>,
+    image: String,
+    weights_top: Option<HashMap<String, i32>>,
+    weights_right: Option<HashMap<String, i32>>,
+    weights_bottom: Option<HashMap<String, i32>>,
+    weights_left: Option<HashMap<String, i32>>,
 }
 
 impl PartialOrd for TileInfo {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        self.id.partial_cmp(&other.id)
+        self.name.partial_cmp(&other.name)
     }
 }
 
 impl Ord for TileInfo {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.id.cmp(&other.id)
+        self.name.cmp(&other.name)
     }
 }
 
-enum AppPage {
-    Generator,
-    Manager,
-}
+#[derive(Clone, Debug, Default, DeJson, SerJson)]
+#[nserde(transparent)]
+pub struct TilesConfig(Vec<TileInfo>);
 
 #[macroquad::main("BasicShapes")]
 async fn main() {
+    let raw_config = load_string("config.json").await.unwrap();
+    let config = TilesConfig::deserialize_json(&raw_config).unwrap();
+
     // load all jsons in tiles folder
-    let mut tiles = BTreeSet::new();
+    let mut tiles = BTreeMap::new();
     let mut images = BTreeMap::new();
-    for entry in std::fs::read_dir("tiles").unwrap() {
-        let entry = entry.unwrap();
-        let path = entry.path();
-        if path.extension().unwrap() == "json" {
-            let json = load_string(path.to_str().unwrap()).await.unwrap();
-            // load image in assets folder with the same name
-            let tile: TileInfo = DeJson::deserialize_json(&json).unwrap();
-            let id = tile.id.clone();
-            tiles.insert(tile);
 
-            // let image_path = path.with_extension("png");
-            // path at assets folder and png extension
-            let image_path = format!("assets/{}.png", id);
+    for tile in config.0 {
+        let base64_image = &tile.image["data:image/png;base64,".len()..];
 
-            let image = load_texture(&image_path).await.unwrap();
+        let bytes = base64::engine::general_purpose::STANDARD
+            .decode(base64_image)
+            .unwrap();
 
-            images.insert(id, image);
-        }
+        let image = image::load_from_memory(&bytes).unwrap();
+
+        let width = image.width() as u16;
+        let height = image.height() as u16;
+        println!("{} {} {}", &tile.name, width, height);
+        let rgba_pixels = image.to_rgba8().into_raw();
+
+        println!("{:?}", bytes);
+
+        let texture = Texture2D::from_rgba8(width, height, &rgba_pixels);
+        images.insert(tile.name.clone(), texture);
+
+        // tiles.insert(tile);
+        tiles.insert(tile.name.clone(), tile);
     }
 
-    let all_tile_ids: Vec<String> = tiles.iter().map(|tile| tile.id.clone()).collect();
+    // let all_tile_ids: Vec<String> = tiles.iter().map(|tile| tile.name.clone()).collect();
+    let all_tile_ids: Vec<String> = tiles.keys().cloned().collect();
 
-    // a MAP_WIDTH by MAP_HEIGHT array of tile Vecs of all tile ids
     let mut board = vec![vec![all_tile_ids.clone(); MAP_WIDTH]; MAP_HEIGHT];
 
     let mut play_mode = false;
 
-    let mut app_page = AppPage::Generator;
-
     loop {
         clear_background(WHITE);
 
-        if root_ui().button(vec2(screen_width() - 50.0, 0.0), "Tab") {
-            app_page = match app_page {
-                AppPage::Generator => AppPage::Manager,
-                AppPage::Manager => AppPage::Generator,
-            }
-        }
-
-        match app_page {
-            AppPage::Generator => {
-                generator_loop(&mut board, &tiles, &images, &all_tile_ids, &mut play_mode).await;
-            }
-            AppPage::Manager => {
-                Group::new(hash!(), vec2(screen_width(), screen_height()))
-                    .position(vec2(0.0, 0.0))
-                    .ui(&mut *root_ui(), |ui| {
-                        ui.label(None, "Manager");
-                        ui.label(None, "Manager 2");
-                        // let mut canvas = ui.canvas();
-                        // canvas.image(Rect::new(0.0, 0.0, 100.0, 100.0), &images["grass"]);
-                        ui.label(None, "Manager 3");
-                        widgets::Texture::new(images["stone"].weak_clone())
-                            .position(None)
-                            .size(100.0, 100.0)
-                            .ui(ui);
-                        // ui.texture(images["stone"].clone(), 1000.0, 1000.0);
-                    });
-            }
-        }
+        generator_loop(&mut board, &tiles, &images, &all_tile_ids, &mut play_mode).await;
 
         next_frame().await
     }

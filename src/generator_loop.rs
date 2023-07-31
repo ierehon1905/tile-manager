@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 
 use macroquad::{prelude::*, rand::ChooseRandom, ui::root_ui};
 
@@ -6,7 +6,7 @@ use crate::{TileInfo, MAP_HEIGHT, MAP_WIDTH, TILE_SIZE};
 
 pub async fn generator_loop(
     board: &mut Vec<Vec<Vec<String>>>,
-    tiles: &BTreeSet<TileInfo>,
+    tiles: &BTreeMap<String, TileInfo>,
     images: &BTreeMap<String, Texture2D>,
     all_tile_ids: &Vec<String>,
     play_mode: &mut bool,
@@ -43,12 +43,13 @@ pub async fn generator_loop(
             let tile_count = tile_ids.len();
             let tile_x = x as f32 * TILE_SIZE;
             let tile_y = y as f32 * TILE_SIZE;
-            let small_square_size = TILE_SIZE / tile_count as f32;
-            // draw all possible tiles in one cell in a row
             for (i, tile_id) in tile_ids.iter().enumerate() {
-                let tile = tiles.iter().find(|tile| tile.id == *tile_id).unwrap();
-
-                if tile_count != 1 {
+                if tile_count > 4 {
+                    continue;
+                } else if tile_count > 1 && tile_count <= 4 {
+                    let small_square_size = TILE_SIZE / tile_count as f32;
+                    // let tile = tiles.iter().find(|tile| tile.name == *tile_id).unwrap();
+                    let tile = tiles.get(tile_id).unwrap();
                     let tile_color = Color::new(
                         tile.color.0 as f32 / 255.0,
                         tile.color.1 as f32 / 255.0,
@@ -64,6 +65,7 @@ pub async fn generator_loop(
                         tile_color,
                     );
                 } else {
+                    let small_square_size = TILE_SIZE / tile_count as f32;
                     draw_texture_ex(
                         images.get(tile_id).unwrap(),
                         tile_x + i as f32 * small_square_size,
@@ -113,7 +115,90 @@ enum Side {
     Left,
 }
 
-fn step(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeSet<TileInfo>) -> bool {
+fn add_maps(map1: &HashMap<String, i32>, map2: &HashMap<String, i32>) -> HashMap<String, i32> {
+    let mut result = map1.clone();
+
+    for (key, value) in map2 {
+        let current_value = result.entry(key.clone()).or_insert(0);
+        *current_value += value;
+    }
+
+    result
+}
+
+fn get_preference_map(
+    board: &Vec<Vec<Vec<String>>>,
+    tiles: &BTreeMap<String, TileInfo>,
+    x: usize,
+    y: usize,
+) -> HashMap<String, i32> {
+    let mut preference_map = HashMap::new();
+    let possible_tiles = &board[y][x];
+
+    let mut friends_coords = Vec::new();
+    if x > 0 && board[y][x - 1].len() == 1 {
+        friends_coords.push((x - 1, y, Side::Left));
+    }
+    if x < MAP_WIDTH - 1 && board[y][x + 1].len() == 1 {
+        friends_coords.push((x + 1, y, Side::Right));
+    }
+    if y > 0 && board[y - 1][x].len() == 1 {
+        friends_coords.push((x, y - 1, Side::Top));
+    }
+    if y < MAP_HEIGHT - 1 && board[y + 1][x].len() == 1 {
+        friends_coords.push((x, y + 1, Side::Bottom));
+    }
+
+    for (x, y, side) in friends_coords {
+        let side_possible_values = &board[y][x];
+        // sum all weights for top possibilities
+        let top_preference_map: HashMap<String, i32> =
+            side_possible_values
+                .iter()
+                .fold(HashMap::new(), |acc, side_possibility| {
+                    let side_possibility = tiles.get(side_possibility).unwrap();
+
+                    let opposite_weights = match side {
+                        Side::Top => &side_possibility.weights_bottom,
+                        Side::Right => &side_possibility.weights_left,
+                        Side::Bottom => &side_possibility.weights_top,
+                        Side::Left => &side_possibility.weights_right,
+                    };
+
+                    if opposite_weights.is_none() {
+                        return acc;
+                    }
+
+                    let opposite_weights = opposite_weights.as_ref().unwrap();
+
+                    add_maps(&acc, opposite_weights)
+                });
+
+        preference_map = add_maps(&preference_map, &top_preference_map);
+    }
+
+    preference_map
+}
+
+fn choose_with_preferences(possible_tiles_with_preferences: &Vec<(&String, i32)>) -> String {
+    let mut total_weight = 0.0;
+    for (_, weight) in possible_tiles_with_preferences {
+        total_weight += *weight as f32;
+    }
+
+    let mut random_weight = rand::gen_range(0.0, total_weight);
+
+    for (tile, weight) in possible_tiles_with_preferences {
+        random_weight -= *weight as f32;
+        if random_weight <= 0.0 {
+            return tile.to_string();
+        }
+    }
+
+    panic!("Should not happen");
+}
+
+fn step(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeMap<String, TileInfo>) -> bool {
     // find cell with lowest number of possible tiles
     let mut min_tile_count = usize::MAX;
     let mut min_tile_count_cell = (0, 0);
@@ -135,17 +220,44 @@ fn step(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeSet<TileInfo>) -> bool {
 
     // find all possible tiles for this cell
     let possible_tiles = &board[y][x];
-    // pick one of them and remove others
-    // let picked_tile = &possible_tiles[0].clone();
-    let picked_tile = &possible_tiles.choose().unwrap().clone();
-    board[y][x] = vec![picked_tile.clone()];
+
+    let preferences = get_preference_map(board, tiles, x, y);
+
+    // println!("preferences: {:?}", preferences);
+
+    let possible_tiles_with_preferences = possible_tiles
+        .iter()
+        .map(|tile| {
+            let mut preference = *preferences.get(tile).unwrap_or(&0);
+
+            if preference <= 0 {
+                preference = 1;
+            }
+
+            (tile, preference)
+        })
+        .collect::<Vec<_>>();
+
+    let picked_tile = choose_with_preferences(&possible_tiles_with_preferences);
+    // let picked_tile = possible_tiles.choose().unwrap().clone();
+    // println!(
+    //     "x: {}\ny: {}\npossible_tiles_with_preferences: {:?}\npicked_tile: {}",
+    //     x, y, possible_tiles_with_preferences, picked_tile
+    // );
+
+    board[y][x] = vec![picked_tile];
 
     collapse(board, tiles, x, y);
 
     true
 }
 
-fn collapse(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeSet<TileInfo>, x: usize, y: usize) {
+fn collapse(
+    board: &mut Vec<Vec<Vec<String>>>,
+    tiles: &BTreeMap<String, TileInfo>,
+    x: usize,
+    y: usize,
+) {
     let picked_tiles = &board[y][x];
 
     // find all friends of this cell
@@ -168,7 +280,7 @@ fn collapse(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeSet<TileInfo>, x: us
     // find all infos for picked tiles
     let picked_tile_infos = picked_tiles
         .iter()
-        .map(|picked_tile| tiles.iter().find(|tile| tile.id == *picked_tile).unwrap())
+        .map(|picked_tile| tiles.get(picked_tile).unwrap())
         .collect::<Vec<_>>();
 
     for (f_x, f_y, side) in friends_coords {

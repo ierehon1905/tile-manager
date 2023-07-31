@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tile manager</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      .tileGrid {
+        display: inline-grid;
+        grid-template-areas:
+          ". top ."
+          "left center right"
+          ". bottom .";
+        padding: 8px;
+        border: 1px solid white;
+        position: relative;
+      }
+
+      .friendsTop,
+      .friendsRight,
+      .friendsBottom,
+      .friendsLeft {
+        display: flex;
+        justify-content: center;
+      }
+
+      .friendsTop img,
+      .friendsRight img,
+      .friendsBottom img,
+      .friendsLeft img,
+      .center img {
+        width: 64px;
+        height: 64px;
+      }
+
+      .friendsTop {
+        grid-area: top;
+        flex-direction: row;
+        padding: 0 16px;
+      }
+
+      .friendsRight {
+        grid-area: right;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .friendsBottom {
+        grid-area: bottom;
+        flex-direction: row;
+        padding: 0 16px;
+      }
+
+      .friendsLeft {
+        grid-area: left;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .center {
+        grid-area: center;
+        display: grid;
+        place-items: center;
+      }
+
+      .painterCanvas {
+        width: 400px;
+        height: 400px;
+        border: 1px solid white;
+      }
+
+      .tileImage {
+        position: relative;
+      }
+
+      .tileImage button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+      }
+
+      .tileGrid:hover .tileImage button {
+        opacity: 1;
+      }
+
+      .button-grid-add {
+        display: none;
+        opacity: 0;
+        z-index: 2;
+      }
+
+      .tileGrid:hover .button-grid-add {
+        opacity: 1;
+      }
+
+      /*  */
+
+      img {
+        display: block;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        image-rendering: pixelated;
+
+        background-color: black;
+        color: white;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <h1>Tile Manager</h1>
+      <p>This app requires JavaScript to be enabled.</p>
+    </noscript>
+    <script type="text/babel">
+      function usePersistedState(key, initial) {
+        const [state, setState] = React.useState(() => {
+          const persisted = localStorage.getItem(key);
+          if (persisted) {
+            return JSON.parse(persisted);
+          }
+          if (typeof initial === "function") {
+            return initial();
+          }
+          return initial;
+        });
+
+        React.useEffect(() => {
+          localStorage.setItem(key, JSON.stringify(state));
+        }, [state]);
+
+        return [state, setState];
+      }
+
+      function TileImage({ image }) {
+        return (
+          <div className="tileImage">
+            <img src={image} />
+          </div>
+        );
+      }
+
+      function App(props) {
+        const [tileInfo, setTileInfo] = usePersistedState("tileInfo", [
+          {
+            name: "grass",
+            friends_top: ["grass", "stone"],
+            friends_right: ["grass", "stone"],
+            friends_bottom: ["grass", "stone"],
+            friends_left: ["grass", "stone"],
+            slots_top: ["s_full_grass"],
+            slots_right: ["s_full_grass"],
+            slots_bottom: ["s_full_grass"],
+            slots_left: ["s_full_grass"],
+            image:
+              "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAJElEQVQ4EWNkaGD4z0ABYKJAL1jrqAEMDKNhMBoGoMww8OkAAFReAZ8KdKPfAAAAAElFTkSuQmCC",
+          },
+          {
+            name: "stone",
+            friends_top: ["grass", "stone"],
+            friends_right: ["grass", "stone"],
+            friends_bottom: ["grass", "stone"],
+            friends_left: ["grass", "stone"],
+            slots_top: ["s_full_stone"],
+            slots_right: ["s_full_stone"],
+            slots_bottom: ["s_full_stone"],
+            slots_left: ["s_full_stone"],
+            image:
+              "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAJElEQVQ4EWNsaGj4z0ABYKJAL1jrqAEMDKNhMBoGoMww8OkAAGKaAp95Za6sAAAAAElFTkSuQmCC",
+          },
+        ]);
+
+        return (
+          <div>
+            <h1>Tile manager</h1>
+            <section>
+              <h2>Tiles</h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, 100px)",
+                  gridGap: "8px",
+                }}
+              >
+                {tileInfo.map((el) => (
+                  <div
+                    key={el.name}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      gap: "8px",
+                    }}
+                  >
+                    {el.name} <img src={el.image} width="100" height="100" />
+                  </div>
+                ))}
+              </div>
+            </section>
+            <AllSlotsSection tileInfo={tileInfo} />
+            <TileFriendsSection tileInfo={tileInfo} setTileInfo={setTileInfo} />
+            <PainterSection tileInfo={tileInfo} setTileInfo={setTileInfo} />
+            <div
+              style={{
+                position: "fixed",
+                bottom: 0,
+                right: 0,
+              }}
+            >
+              <button
+                onClick={() => {
+                  const data = JSON.stringify(tileInfo, null, 2);
+                  const blob = new Blob([data], { type: "application/json" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "tileInfo.json";
+                  a.click();
+                  a.remove();
+                }}
+              >
+                Export
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      function AllSlotsSection({ tileInfo }) {
+        const [editedSlotIndex, setEditedSlotIndex] = React.useState(null);
+        const [editedSlotName, setEditedSlotName] = React.useState("");
+        const allSlotsSet = new Set();
+
+        for (let tile of tileInfo) {
+          for (let side of ["top", "right", "bottom", "left"]) {
+            const slots = tile[`slots_${side}`] || [];
+            for (let slot of slots) {
+              allSlotsSet.add(slot);
+            }
+          }
+        }
+
+        const allSlotsArray = Array.from(allSlotsSet);
+
+        return (
+          <section>
+            <h2>Slots</h2>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "8px",
+              }}
+            >
+              {allSlotsArray.map((el) => (
+                <div key={el}>{el}</div>
+              ))}
+            </div>
+          </section>
+        );
+      }
+
+      function TileFriends({ name, tileInfo, setTileInfo }) {
+        const tileMap = tileInfo.reduce((acc, el) => {
+          acc[el.name] = el;
+          return acc;
+        }, {});
+        const [friendName, setFriendName] = React.useState(name);
+        const [fiendSide, setFriendSide] = React.useState("friends_top");
+
+        const el = tileMap[name];
+
+        return (
+          <div key={el.name}>
+            <div>{el.name}</div>
+            <div
+              style={{
+                display: "flex",
+                // justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: "8px",
+              }}
+            >
+              <div className="tileGrid">
+                <button
+                  className="button-grid-add"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  Add up
+                </button>
+                <button
+                  className="button-grid-add"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: 0,
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  Add right
+                </button>
+                <button
+                  className="button-grid-add"
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  Add down
+                </button>
+                <button
+                  className="button-grid-add"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: 0,
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  Add left
+                </button>
+                <div className="friendsTop">
+                  {el.friends_top.map((friend) => (
+                    <TileImage key={friend} image={tileMap[friend].image} />
+                  ))}
+                </div>
+                <div className="friendsRight">
+                  {el.friends_right.map((friend) => (
+                    <TileImage key={friend} image={tileMap[friend].image} />
+                  ))}
+                </div>
+                <div className="friendsBottom">
+                  {el.friends_bottom.map((friend) => (
+                    <TileImage key={friend} image={tileMap[friend].image} />
+                  ))}
+                </div>
+                <div className="friendsLeft">
+                  {el.friends_left.map((friend) => (
+                    <TileImage key={friend} image={tileMap[friend].image} />
+                  ))}
+                </div>
+
+                <div
+                  className="center"
+                  style={{
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      bottom: 0,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "2px",
+                      backgroundColor: "lightgrey",
+                      zIndex: -1,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: 0,
+                      right: 0,
+                      transform: "translateY(-50%)",
+                      height: "2px",
+                      backgroundColor: "lightgrey",
+                      zIndex: -1,
+                    }}
+                  />
+                  <TileImage image={el.image} />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <button>Rename</button>
+                <button>Delete</button>
+                <div>
+                  Add friend
+                  <br />
+                  <select
+                    value={friendName}
+                    onChange={(e) => {
+                      const newFriendName = e.target.value;
+                      setFriendName(newFriendName);
+                    }}
+                  >
+                    {tileInfo.map((el) => (
+                      <option key={el.name} value={el.name}>
+                        {el.name}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <select
+                    value={fiendSide}
+                    onChange={(e) => {
+                      const newFriendSide = e.target.value;
+                      setFriendSide(newFriendSide);
+                    }}
+                  >
+                    <option value="friends_top">top</option>
+                    <option value="friends_right">right</option>
+                    <option value="friends_bottom">bottom</option>
+                    <option value="friends_left">left</option>
+                  </select>
+                  <br />
+                  <button
+                    onClick={() => {
+                      const newTileInfo = structuredClone(tileInfo);
+                      const index = newTileInfo.findIndex(
+                        (el) => el.name === name
+                      );
+                      const alreadyExists =
+                        newTileInfo[index][fiendSide].includes(friendName);
+
+                      if (alreadyExists) {
+                        newTileInfo[index][fiendSide] = newTileInfo[index][
+                          fiendSide
+                        ].filter((el) => el !== friendName);
+
+                        // remove from recipient
+                        const friendIndex = newTileInfo.findIndex(
+                          (el) => el.name === friendName
+                        );
+
+                        const friendSideOpposite = {
+                          friends_top: "friends_bottom",
+                          friends_right: "friends_left",
+                          friends_bottom: "friends_top",
+                          friends_left: "friends_right",
+                        }[fiendSide];
+
+                        newTileInfo[friendIndex][friendSideOpposite] =
+                          newTileInfo[friendIndex][friendSideOpposite].filter(
+                            (el) => el !== name
+                          );
+
+                        setTileInfo(newTileInfo);
+                        return;
+                      }
+
+                      newTileInfo[index][fiendSide] = Array.from(
+                        new Set([...newTileInfo[index][fiendSide], friendName])
+                      );
+
+                      // add to recipient
+
+                      const friendIndex = newTileInfo.findIndex(
+                        (el) => el.name === friendName
+                      );
+
+                      const friendSideOpposite = {
+                        friends_top: "friends_bottom",
+                        friends_right: "friends_left",
+                        friends_bottom: "friends_top",
+                        friends_left: "friends_right",
+                      }[fiendSide];
+
+                      newTileInfo[friendIndex][friendSideOpposite] = Array.from(
+                        new Set([
+                          ...newTileInfo[friendIndex][friendSideOpposite],
+                          name,
+                        ])
+                      );
+
+                      console.log({ newTileInfo });
+
+                      setTileInfo(newTileInfo);
+                    }}
+                  >
+                    Toggle
+                  </button>
+                </div>
+                <SlotsInputs
+                  name={name}
+                  tileInfo={tileInfo}
+                  setTileInfo={setTileInfo}
+                />
+                <WeightsInputs
+                  name={name}
+                  tileInfo={tileInfo}
+                  setTileInfo={setTileInfo}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function WeightsInputs({ name, tileInfo, setTileInfo }) {
+        const tileMap = tileInfo.reduce((acc, el) => {
+          acc[el.name] = el;
+          return acc;
+        }, {});
+
+        const getInputHandler = (side) => (friendName) => (e) => {
+          // console.log({ name, side, friendName, value: e.target.value });
+
+          const newTileInfo = structuredClone(tileInfo);
+          const index = newTileInfo.findIndex((el) => el.name === name);
+          // const friendIndex = newTileInfo.findIndex(
+          //   (el) => el.name === friendName
+          // );
+
+          const weight = Number(e.target.value);
+
+          // if side weigts do not exist, create them
+          if (!newTileInfo[index][`weights_${side}`]) {
+            newTileInfo[index][`weights_${side}`] = {};
+          }
+
+          // const oppositeSideMap = {
+          //   top: "bottom",
+          //   right: "left",
+          //   bottom: "top",
+          //   left: "right",
+          // };
+
+          // if (!newTileInfo[friendIndex][`weights_${oppositeSideMap[side]}`]) {
+          //   newTileInfo[friendIndex][`weights_${oppositeSideMap[side]}`] = {};
+          // }
+
+          // set weight
+
+          newTileInfo[index][`weights_${side}`][friendName] = weight;
+
+          // sort friends
+
+          newTileInfo[index][`friends_${side}`].sort((a, b) => {
+            const aWeight = newTileInfo[index][`weights_${side}`]?.[a] || 0;
+            const bWeight = newTileInfo[index][`weights_${side}`]?.[b] || 0;
+
+            return bWeight - aWeight;
+          });
+          // newTileInfo[index][`weights_${side}`] = Object.fromEntries(
+          //   Object.entries(newTileInfo[index][`weights_${side}`]).sort(
+          //     (a, b) => b[1] - a[1]
+          //   )
+          // );
+
+          // newTileInfo[friendIndex][`weights_${oppositeSideMap[side]}`][name] =
+          //   weight;
+
+          setTileInfo(newTileInfo);
+        };
+
+        const getInputValue = (side) => (friendName) => {
+          const el = tileMap[name];
+
+          const weight = el[`weights_${side}`]?.[friendName];
+
+          return weight || 0;
+        };
+
+        return (
+          <div>
+            Weights
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "8px",
+              }}
+            >
+              {["top", "right", "bottom", "left"].map((side) => (
+                <div key={side}>
+                  {side}
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr auto auto",
+                      gridGap: "4px",
+                    }}
+                  >
+                    {tileMap[name][`friends_${side}`].map((el) => (
+                      <React.Fragment key={el}>
+                        {el}
+                        <img src={tileMap[el].image} width="16" height="16" />
+                        <input
+                          type="number"
+                          style={{ width: 40 }}
+                          value={getInputValue(side)(el)}
+                          onChange={getInputHandler(side)(el)}
+                        />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      function SlotsInputs({ name, tileInfo, setTileInfo }) {
+        const tileMap = tileInfo.reduce((acc, el) => {
+          acc[el.name] = el;
+          return acc;
+        }, {});
+
+        const [slots, setSlots] = React.useState({
+          top: tileMap[name].slots_top || [],
+          right: tileMap[name].slots_right || [],
+          bottom: tileMap[name].slots_bottom || [],
+          left: tileMap[name].slots_left || [],
+        });
+
+        const getHandleChange = (side) => (e) => {
+          const newSlots = { ...slots };
+          newSlots[side] = e.target.value
+            .trim()
+            .split(/\s+/gm)
+            .map((el) => el.trim());
+
+          setSlots(newSlots);
+        };
+
+        const handleRecalculate = () => {
+          const newTileInfo = structuredClone(tileInfo);
+          const index = newTileInfo.findIndex((el) => el.name === name);
+          newTileInfo[index] = {
+            ...newTileInfo[index],
+            slots_top: slots.top,
+            slots_right: slots.right,
+            slots_bottom: slots.bottom,
+            slots_left: slots.left,
+          };
+
+          // recalculate friends
+
+          // find all tiles that have opposite side in slots
+
+          const oppositeSideSlotMap = {
+            slots_top: "slots_bottom",
+            slots_right: "slots_left",
+            slots_bottom: "slots_top",
+            slots_left: "slots_right",
+          };
+
+          const slotsFriendsMap = {
+            slots_top: "friends_top",
+            slots_right: "friends_right",
+            slots_bottom: "friends_bottom",
+            slots_left: "friends_left",
+          };
+
+          for (let tile of newTileInfo) {
+            for (let side of Object.keys(oppositeSideSlotMap)) {
+              const oppositeSide = oppositeSideSlotMap[side];
+              const oppositeSideSlots = tile[oppositeSide] || [];
+
+              const hasOppositeSide = oppositeSideSlots.some((el) =>
+                newTileInfo[index][side].includes(el)
+              );
+
+              if (!hasOppositeSide) {
+                // remove from friends and remove self from friends of other tile
+
+                tile[slotsFriendsMap[oppositeSide]] = tile[
+                  slotsFriendsMap[oppositeSide]
+                ].filter((el) => el !== name);
+
+                newTileInfo[index][slotsFriendsMap[side]] = newTileInfo[index][
+                  slotsFriendsMap[side]
+                ].filter((el) => el !== tile.name);
+
+                continue;
+              }
+
+              // add to friends and add self to friends of other tile
+
+              tile[slotsFriendsMap[oppositeSide]] = Array.from(
+                new Set([...tile[slotsFriendsMap[oppositeSide]], name])
+              );
+
+              newTileInfo[index][slotsFriendsMap[side]] = Array.from(
+                new Set([
+                  ...newTileInfo[index][slotsFriendsMap[side]],
+                  tile.name,
+                ])
+              );
+            }
+          }
+
+          setTileInfo(newTileInfo);
+        };
+
+        return (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>Slots</div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "auto 1fr",
+              }}
+            >
+              <label>Top</label>
+              <input
+                type="text"
+                placeholder="foo, bar"
+                value={slots.top.join(" ")}
+                onChange={getHandleChange("top")}
+              />
+              <label>Right</label>
+              <input
+                type="text"
+                value={slots.right.join(" ")}
+                onChange={getHandleChange("right")}
+              />
+              <label>Bottom</label>
+              <input
+                type="text"
+                value={slots.bottom.join(" ")}
+                onChange={getHandleChange("bottom")}
+              />
+              <label>Left</label>
+              <input
+                type="text"
+                value={slots.left.join(" ")}
+                onChange={getHandleChange("left")}
+              />
+            </div>
+
+            <button onClick={handleRecalculate}>Recalculate</button>
+          </div>
+        );
+      }
+
+      function TileFriendsSection({ tileInfo, setTileInfo }) {
+        return (
+          <section>
+            <h2>Tile friends</h2>
+            <div>
+              {tileInfo.map((el) => (
+                <TileFriends
+                  key={el.name}
+                  name={el.name}
+                  tileInfo={tileInfo}
+                  setTileInfo={setTileInfo}
+                />
+              ))}
+            </div>
+          </section>
+        );
+      }
+
+      function PainterSection({ tileInfo, setTileInfo }) {
+        const tileMap = tileInfo.reduce((acc, el) => {
+          acc[el.name] = el;
+          return acc;
+        }, {});
+        const [color, setColor] = React.useState("#000000");
+        const canvasRef = React.useRef(null);
+        const [history, setHistory] = usePersistedState("history", () => {
+          const arr = [];
+          for (let i = 0; i < 16; i++) {
+            arr.push(new Array(16).fill("#ffffff"));
+          }
+          return [arr];
+        });
+        const [currentHistoryIndex, setCurrentHistoryIndex] = usePersistedState(
+          "currentHistoryIndex",
+          0
+        );
+        console.log({ history, currentHistoryIndex });
+        const current = history.at(
+          currentHistoryIndex > history.length - 1 ? -1 : currentHistoryIndex
+        );
+        console.log({ current });
+        const currentStrokeRef = React.useRef(null);
+
+        const [painting, setPainting] = React.useState(false);
+        const [tool, setTool] = React.useState("pencil");
+
+        const [base64, setBase64] = React.useState("Loading...");
+        const [outputTileName, setOutputTileName] = React.useState(
+          tileInfo[0].name || "grass"
+        );
+
+        React.useEffect(() => {
+          const ctx = canvasRef.current.getContext("2d");
+
+          for (let y = 0; y < 16; y++) {
+            for (let x = 0; x < 16; x++) {
+              ctx.fillStyle = current[y][x];
+              ctx.fillRect(x, y, 1, 1);
+            }
+          }
+
+          const interval = window.setInterval(() => {
+            const data = canvasRef.current.toDataURL("image/png");
+            if (data !== base64) {
+              setBase64(data);
+            }
+          }, 1000);
+        }, []);
+
+        return (
+          <section>
+            <h2>Painter</h2>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
+              <div>
+                <canvas
+                  className="painterCanvas"
+                  width="16"
+                  height="16"
+                  style={{
+                    cursor: "crosshair",
+                  }}
+                  ref={canvasRef}
+                  onMouseDown={(e) => {
+                    setPainting(true);
+
+                    currentStrokeRef.current = structuredClone(current);
+                    const ctx = canvasRef.current.getContext("2d");
+
+                    if (tool === "pencil") {
+                      const x = Math.floor((e.nativeEvent.offsetX / 400) * 16);
+                      const y = Math.floor((e.nativeEvent.offsetY / 400) * 16);
+
+                      if (currentStrokeRef.current[y][x] === color) {
+                        console.log("same color", x, y);
+                        return;
+                      }
+
+                      ctx.fillStyle = color;
+
+                      ctx.fillRect(x, y, 1, 1);
+                      currentStrokeRef.current[y][x] = color;
+                    } else if (tool === "fill") {
+                      const x = Math.floor((e.nativeEvent.offsetX / 400) * 16);
+                      const y = Math.floor((e.nativeEvent.offsetY / 400) * 16);
+
+                      const targetColor = current[y][x];
+                      console.log({ targetColor });
+
+                      const queue = [[x, y]];
+
+                      while (queue.length > 0) {
+                        const [x, y] = queue.pop();
+                        if (currentStrokeRef.current[y][x] !== targetColor) {
+                          continue;
+                        }
+
+                        ctx.fillStyle = color;
+                        ctx.fillRect(x, y, 1, 1);
+                        currentStrokeRef.current[y][x] = color;
+
+                        if (x > 0) {
+                          queue.push([x - 1, y]);
+                        }
+                        if (x < 15) {
+                          queue.push([x + 1, y]);
+                        }
+                        if (y > 0) {
+                          queue.push([x, y - 1]);
+                        }
+                        if (y < 15) {
+                          queue.push([x, y + 1]);
+                        }
+                      }
+                    } else if (tool === "eraser") {
+                      const x = Math.floor((e.nativeEvent.offsetX / 400) * 16);
+                      const y = Math.floor((e.nativeEvent.offsetY / 400) * 16);
+
+                      if (currentStrokeRef.current[y][x] === color) {
+                        console.log("same color", x, y);
+                        return;
+                      }
+
+                      ctx.fillStyle = "white";
+
+                      console.log("x", x, e.nativeEvent.offsetX);
+                      ctx.fillRect(x, y, 1, 1);
+                      currentStrokeRef.current[y][x] = "white";
+                    }
+                  }}
+                  onMouseUp={() => {
+                    setPainting(false);
+                    setHistory((prev) => {
+                      const newHistory = prev.slice(0, currentHistoryIndex + 1);
+                      newHistory.push(currentStrokeRef.current);
+                      currentStrokeRef.current = null;
+                      // trim to 10
+                      if (newHistory.length > 10) {
+                        while (newHistory.length > 10) {
+                          newHistory.shift();
+                        }
+                      }
+                      setCurrentHistoryIndex(newHistory.length - 1);
+
+                      console.log({ newHistory });
+                      return newHistory;
+                    });
+                  }}
+                  onMouseMove={(e) => {
+                    if (!painting) {
+                      return;
+                    }
+
+                    const ctx = canvasRef.current.getContext("2d");
+
+                    const x = Math.floor((e.nativeEvent.offsetX / 400) * 16);
+                    const y = Math.floor((e.nativeEvent.offsetY / 400) * 16);
+
+                    if (currentStrokeRef.current[y][x] === color) {
+                      console.log("same color", x, y);
+                      return;
+                    }
+
+                    ctx.fillStyle = color;
+
+                    console.log("x", x, e.nativeEvent.offsetX);
+                    ctx.fillRect(x, y, 1, 1);
+                    currentStrokeRef.current[y][x] = color;
+                  }}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    //  if cmd + z log undo
+                    if (e.metaKey && e.key === "z") {
+                      console.log("undo");
+                      if (currentHistoryIndex <= 0) {
+                        console.log("no more history");
+                        return;
+                      }
+
+                      const newHistoryIndex = currentHistoryIndex - 1;
+                      setCurrentHistoryIndex(newHistoryIndex);
+                      const ctx = canvasRef.current.getContext("2d");
+                      // ctx.clearRect(0, 0, 16, 16);
+                      ctx.fillStyle = "white";
+                      ctx.fillRect(0, 0, 16, 16);
+                      const newCurrent = history.at(newHistoryIndex);
+                      newCurrent.forEach((row, y) => {
+                        row.forEach((color, x) => {
+                          ctx.fillStyle = color;
+                          ctx.fillRect(x, y, 1, 1);
+                        });
+                      });
+                    }
+                  }}
+                  tabIndex={0}
+                />
+                <div>
+                  <textarea
+                    style={{ width: "100%", height: "120px" }}
+                    value={base64}
+                    readOnly
+                  />
+                </div>
+              </div>
+              <div>
+                <div id="color">
+                  <label>
+                    color{" "}
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div id="tools">
+                  Tool{" "}
+                  <div>
+                    <label>
+                      <input
+                        type="radio"
+                        name="tool"
+                        value="pencil"
+                        checked={tool === "pencil"}
+                        onChange={() => setTool("pencil")}
+                      />
+                      Pencil
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      <input
+                        type="radio"
+                        name="tool"
+                        value="eraser"
+                        checked={tool === "eraser"}
+                        onChange={() => setTool("eraser")}
+                      />
+                      Eraser
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      <input
+                        type="radio"
+                        name="tool"
+                        value="fill"
+                        checked={tool === "fill"}
+                        onChange={() => setTool("fill")}
+                      />
+                      Fill
+                    </label>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        // rotate 90 clockwise
+                        const newCurrentRotated = [];
+                        for (let y = 0; y < 16; y++) {
+                          const row = [];
+                          for (let x = 0; x < 16; x++) {
+                            row.push(current[15 - x][y]);
+                          }
+                          newCurrentRotated.push(row);
+                        }
+
+                        // paint canvas
+                        const ctx = canvasRef.current.getContext("2d");
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, 16, 16);
+                        newCurrentRotated.forEach((row, y) => {
+                          row.forEach((color, x) => {
+                            ctx.fillStyle = color;
+                            ctx.fillRect(x, y, 1, 1);
+                          });
+                        });
+
+                        setHistory((prev) => {
+                          const newHistory = prev.slice(
+                            0,
+                            currentHistoryIndex + 1
+                          );
+                          newHistory.push(newCurrentRotated);
+                          if (newHistory.length > 10) {
+                            while (newHistory.length > 10) {
+                              newHistory.shift();
+                            }
+                          }
+                          setCurrentHistoryIndex(newHistory.length - 1);
+                          console.log({ newHistory });
+
+                          return newHistory;
+                        });
+                      }}
+                    >
+                      Rotate 90
+                    </button>
+                  </div>
+                </div>
+                <div id="output">
+                  <label>
+                    Output tile name{" "}
+                    <div>
+                      <input
+                        type="text"
+                        value={outputTileName}
+                        onChange={(e) => setOutputTileName(e.target.value)}
+                      />
+                    </div>
+                  </label>
+                  <div>
+                    <button
+                      onClick={() => {
+                        // fill canvas with cloned tile
+                        const tileInfo = structuredClone(
+                          tileMap[outputTileName]
+                        );
+                        const image = tileInfo.image;
+                        const canvas = canvasRef.current;
+
+                        const ctx = canvas.getContext("2d");
+
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, 16, 16);
+
+                        const img = new Image();
+                        img.src = image;
+                        img.onload = () => {
+                          ctx.drawImage(img, 0, 0);
+
+                          const numberArray16x16 = [];
+
+                          for (let y = 0; y < 16; y++) {
+                            const row = [];
+                            for (let x = 0; x < 16; x++) {
+                              const pixelData = ctx.getImageData(
+                                x,
+                                y,
+                                1,
+                                1
+                              ).data;
+
+                              const hex = rgbToHex(
+                                pixelData[0],
+                                pixelData[1],
+                                pixelData[2]
+                              );
+
+                              row.push(hex);
+                            }
+                            numberArray16x16.push(row);
+                          }
+
+                          setHistory((prev) => {
+                            const newHistory = prev.slice(
+                              0,
+                              currentHistoryIndex + 1
+                            );
+                            newHistory.push(numberArray16x16);
+                            if (newHistory.length > 10) {
+                              while (newHistory.length > 10) {
+                                newHistory.shift();
+                              }
+                            }
+                            setCurrentHistoryIndex(newHistory.length - 1);
+
+                            console.log({ newHistory });
+                            return newHistory;
+                          });
+                        };
+                      }}
+                    >
+                      Clone from
+                    </button>
+                    <button
+                      onClick={() => {
+                        const exists = !!tileMap[outputTileName];
+                        // const newTileInfo = structuredClone(tileInfo);
+                        const outputTile = exists
+                          ? structuredClone(tileMap[outputTileName])
+                          : {
+                              name: outputTileName,
+                              friends_top: [],
+                              friends_right: [],
+                              friends_bottom: [],
+                              friends_left: [],
+                              image: "",
+                            };
+
+                        const data = canvasRef.current.toDataURL("image/png");
+
+                        outputTile.image = data;
+
+                        setTileInfo((prev) => {
+                          const newTileInfo = prev.slice();
+                          const index = exists
+                            ? newTileInfo.findIndex(
+                                (el) => el.name === outputTileName
+                              )
+                            : newTileInfo.length;
+                          newTileInfo[index] = outputTile;
+                          return newTileInfo;
+                        });
+                      }}
+                    >
+                      Clone to
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+
+      root.render(<App />);
+
+      const canvas = document.createElement("canvas");
+
+      canvas.width = 16;
+      canvas.height = 16;
+
+      // fill with green
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "gray";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // get base64 encoded data
+      const data = canvas.toDataURL("image/png");
+
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
+
+      function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      }
+    </script>
+  </body>
+</html>
