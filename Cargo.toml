@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 base64 = "0.21.2"
-image = "0.24.6"
+image = { version = "0.24.6", features = ["png"], default-features = false }
 macroquad = "0.4.2"
 nanoserde = "0.1.33"

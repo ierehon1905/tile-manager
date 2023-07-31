@@ -1,6 +1,10 @@
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, HashMap};
 
-use macroquad::{prelude::*, rand::ChooseRandom, ui::root_ui};
+use macroquad::{
+    hash,
+    prelude::*,
+    ui::{root_ui, widgets},
+};
 
 use crate::{TileInfo, MAP_HEIGHT, MAP_WIDTH, TILE_SIZE};
 
@@ -11,13 +15,25 @@ pub async fn generator_loop(
     all_tile_ids: &Vec<String>,
     play_mode: &mut bool,
 ) {
+    let offset_x = if MAP_WIDTH as f32 * TILE_SIZE < screen_width() {
+        (screen_width() - MAP_WIDTH as f32 * TILE_SIZE) / 2.0
+    } else {
+        0.0
+    };
+
+    let tile_size = if MAP_WIDTH as f32 * TILE_SIZE > screen_width() {
+        screen_width() / MAP_WIDTH as f32
+    } else {
+        TILE_SIZE
+    };
+
     // draw vertical lines
     for x in 0..MAP_WIDTH {
         draw_line(
-            x as f32 * TILE_SIZE,
+            x as f32 * tile_size + offset_x,
             0.0,
-            x as f32 * TILE_SIZE,
-            MAP_HEIGHT as f32 * TILE_SIZE,
+            x as f32 * tile_size + offset_x,
+            MAP_HEIGHT as f32 * tile_size,
             1.0,
             DARKGRAY,
         );
@@ -26,10 +42,10 @@ pub async fn generator_loop(
     // draw horizontal lines
     for y in 0..MAP_HEIGHT {
         draw_line(
-            0.0,
-            y as f32 * TILE_SIZE,
-            MAP_WIDTH as f32 * TILE_SIZE,
-            y as f32 * TILE_SIZE,
+            0.0 + offset_x,
+            y as f32 * tile_size,
+            MAP_WIDTH as f32 * tile_size + offset_x,
+            y as f32 * tile_size,
             1.0,
             DARKGRAY,
         );
@@ -41,13 +57,13 @@ pub async fn generator_loop(
         for x in 0..MAP_WIDTH {
             let tile_ids = &board[y][x];
             let tile_count = tile_ids.len();
-            let tile_x = x as f32 * TILE_SIZE;
-            let tile_y = y as f32 * TILE_SIZE;
+            let tile_x = x as f32 * tile_size;
+            let tile_y = y as f32 * tile_size;
             for (i, tile_id) in tile_ids.iter().enumerate() {
                 if tile_count > 4 {
                     continue;
                 } else if tile_count > 1 && tile_count <= 4 {
-                    let small_square_size = TILE_SIZE / tile_count as f32;
+                    let small_square_size = tile_size / tile_count as f32;
                     // let tile = tiles.iter().find(|tile| tile.name == *tile_id).unwrap();
                     let tile = tiles.get(tile_id).unwrap();
                     let tile_color = Color::new(
@@ -58,17 +74,17 @@ pub async fn generator_loop(
                     );
 
                     draw_rectangle(
-                        tile_x + i as f32 * small_square_size,
+                        tile_x + i as f32 * small_square_size + offset_x,
                         tile_y,
                         small_square_size,
                         small_square_size,
                         tile_color,
                     );
                 } else {
-                    let small_square_size = TILE_SIZE / tile_count as f32;
+                    let small_square_size = tile_size / tile_count as f32;
                     draw_texture_ex(
                         images.get(tile_id).unwrap(),
-                        tile_x + i as f32 * small_square_size,
+                        tile_x + i as f32 * small_square_size + offset_x,
                         tile_y,
                         WHITE,
                         DrawTextureParams {
@@ -81,31 +97,44 @@ pub async fn generator_loop(
         }
     }
 
-    if root_ui().button(vec2(0.0, screen_height() - 20.0), "Step") {
-        step(board, &tiles);
-    }
-
-    if root_ui().button(vec2(100.0, screen_height() - 20.0), "Play") {
-        // play_mode = !play_mode;
-        *play_mode = !*play_mode;
-        println!("Play {play_mode}");
-    }
-
-    if *play_mode {
-        step(board, &tiles);
-    }
-
-    if root_ui().button(vec2(150.0, screen_height() - 20.0), "Solve") {
-        while step(board, &tiles) {}
-    }
-
-    if root_ui().button(vec2(50.0, screen_height() - 20.0), "Reset") {
-        for y in 0..MAP_HEIGHT {
-            for x in 0..MAP_WIDTH {
-                board[y][x] = all_tile_ids.clone();
+    widgets::Group::new(hash!(), vec2(screen_width(), 100.0))
+        .position(vec2(0.0, screen_height() - 100.0))
+        .ui(&mut *root_ui(), |ui| {
+            ui.label(None, "Controls:");
+            if ui.button(None, "Step") {
+                step(board, &tiles);
             }
-        }
-    }
+
+            ui.same_line(0.);
+
+            if ui.button(None, "Play") {
+                // play_mode = !play_mode;
+                *play_mode = !*play_mode;
+                println!("Play {play_mode}");
+            }
+            ui.same_line(0.);
+
+            if ui.button(None, "Solve") {
+                while step(board, &tiles) {}
+            }
+            ui.same_line(0.);
+
+            if ui.button(None, "Reset") {
+                for y in 0..MAP_HEIGHT {
+                    for x in 0..MAP_WIDTH {
+                        board[y][x] = all_tile_ids.clone();
+                    }
+                }
+            }
+            ui.same_line(0.);
+
+            if *play_mode {
+                step(board, &tiles);
+            }
+        });
+    // root_ui().group(hash!(), vec2(screen_width(), 50.0), |ui| {
+
+    // });
 }
 
 enum Side {
@@ -133,7 +162,6 @@ fn get_preference_map(
     y: usize,
 ) -> HashMap<String, i32> {
     let mut preference_map = HashMap::new();
-    let possible_tiles = &board[y][x];
 
     let mut friends_coords = Vec::new();
     if x > 0 && board[y][x - 1].len() == 1 {
@@ -228,10 +256,12 @@ fn step(board: &mut Vec<Vec<Vec<String>>>, tiles: &BTreeMap<String, TileInfo>) -
     let possible_tiles_with_preferences = possible_tiles
         .iter()
         .map(|tile| {
-            let mut preference = *preferences.get(tile).unwrap_or(&0);
+            let mut preference = *preferences.get(tile).unwrap_or(&0) * 50;
 
-            if preference <= 0 {
+            if preference == 0 {
                 preference = 1;
+            } else if preference < 0 {
+                preference = 0;
             }
 
             (tile, preference)

@@ -8,7 +8,8 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
     "friends_right": [
       "grass",
@@ -17,7 +18,8 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_bottom": [
       "grass",
@@ -26,7 +28,8 @@
       "grass-grass-stone-grass",
       "grass-sand-v",
       "grass-grass-sand-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_left": [
       "grass",
@@ -35,13 +38,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAJElEQVQ4EWP0r9L4z0ABYKJAL1jrqAEMDKNhMBoGoMww8OkAAB7RAhAujmQAAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_right": {
       "grass": 1,
       "grass-stone": 0
@@ -58,15 +70,35 @@
   },
   {
     "name": "stone",
-    "friends_top": ["stone", "grass-stone-v"],
-    "friends_right": ["stone", "stone-grass"],
-    "friends_bottom": ["stone", "stone-grass-v"],
-    "friends_left": ["stone", "grass-stone"],
+    "friends_top": [
+      "stone",
+      "grass-stone-v"
+    ],
+    "friends_right": [
+      "stone",
+      "stone-grass"
+    ],
+    "friends_bottom": [
+      "stone",
+      "stone-grass-v"
+    ],
+    "friends_left": [
+      "stone",
+      "grass-stone"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAtklEQVQ4EX2R2wrEIAxEu7L43X63L11GOGE61RVKkrlp9TPGuK8/a875YnvvhX3pUugi71PXFADoQsez18xaARpkJggSnJq85hXAzlQP8B5eRsIedyCBPhcg9CB6aZsLMBIkoXrWrq9LhKRiUiiYbwbfTiRi8d5jpNYlehAGRHDMXusZMaUYXCbvmesVSEXkRxe2CxZWJyAgaxqTPwZwEgyaExO3fgHitBs4IZrB6g4A2HFXd5ofXTt6hXNB8PwAAAAASUVORK5CYII=",
-    "slots_top": ["s_full_stone"],
-    "slots_right": ["s_full_stone"],
-    "slots_bottom": ["s_full_stone"],
-    "slots_left": ["s_full_stone"],
+    "slots_top": [
+      "s_full_stone"
+    ],
+    "slots_right": [
+      "s_full_stone"
+    ],
+    "slots_bottom": [
+      "s_full_stone"
+    ],
+    "slots_left": [
+      "s_full_stone"
+    ],
     "weights_top": {
       "stone": 1
     },
@@ -82,9 +114,18 @@
   },
   {
     "name": "grass-stone",
-    "friends_top": ["grass-stone", "grass-grass-grass-stone"],
-    "friends_right": ["stone", "stone-grass"],
-    "friends_bottom": ["grass-stone", "grass-stone-grass-grass"],
+    "friends_top": [
+      "grass-stone",
+      "grass-grass-grass-stone"
+    ],
+    "friends_right": [
+      "stone",
+      "stone-grass"
+    ],
+    "friends_bottom": [
+      "grass-stone",
+      "grass-stone-grass-grass"
+    ],
     "friends_left": [
       "grass",
       "stone-grass",
@@ -92,13 +133,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAbElEQVQ4EY3SwQ2AMAxDUcM0SAyDxDgMxTbMA/KFW76da+rXNOpyXNsrqF0ndKWVuins7Ag0YQQe3TTc3xsn8IkGQaBBIpCQCqCFRoDCni4CPkSFQLrd8Ag0YQSaP4CAmw0yPsGAKyERSLv4AKS7EI0NODJ2AAAAAElFTkSuQmCC",
-    "slots_top": ["s_grass_stone"],
-    "slots_right": ["s_full_stone"],
-    "slots_bottom": ["s_grass_stone"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_grass_stone"
+    ],
+    "slots_right": [
+      "s_full_stone"
+    ],
+    "slots_bottom": [
+      "s_grass_stone"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_left": {
       "grass": 1
     },
@@ -108,7 +158,10 @@
   },
   {
     "name": "stone-grass",
-    "friends_top": ["stone-grass", "grass-grass-stone-grass"],
+    "friends_top": [
+      "stone-grass",
+      "grass-grass-stone-grass"
+    ],
     "friends_right": [
       "grass",
       "grass-stone",
@@ -116,15 +169,30 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
-    "friends_bottom": ["stone-grass", "stone-grass-grass-grass"],
-    "friends_left": ["stone", "grass-stone"],
+    "friends_bottom": [
+      "stone-grass",
+      "stone-grass-grass-grass"
+    ],
+    "friends_left": [
+      "stone",
+      "grass-stone"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAaUlEQVQ4EY3SsRHAMAhDUZJ1so3HYahs43niU5OOL9FiPWPOV3d/BbXrhW7VTV0XVnYEkjACTy0a7u+NE+hEgiCQIBZwSATQQi1AYU1nAR2iQsDdLngEkjACyR9AQM0EGZ8gQOUQC7hdHG1HEhDXtxRZAAAAAElFTkSuQmCC",
-    "slots_top": ["s_stone_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_stone_grass"],
-    "slots_left": ["s_full_stone"],
+    "slots_top": [
+      "s_stone_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_stone_grass"
+    ],
+    "slots_left": [
+      "s_full_stone"
+    ],
     "weights_left": {
       "stone": 1
     },
@@ -134,8 +202,14 @@
   },
   {
     "name": "stone-grass-v",
-    "friends_top": ["stone", "grass-stone-v"],
-    "friends_right": ["stone-grass-v", "stone-grass-grass-grass"],
+    "friends_top": [
+      "stone",
+      "grass-stone-v"
+    ],
+    "friends_right": [
+      "stone-grass-v",
+      "stone-grass-grass-grass"
+    ],
     "friends_bottom": [
       "grass",
       "grass-stone-v",
@@ -143,14 +217,26 @@
       "grass-grass-stone-grass",
       "grass-sand-v",
       "grass-grass-sand-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
-    "friends_left": ["stone-grass-v", "grass-stone-grass-grass"],
+    "friends_left": [
+      "stone-grass-v",
+      "grass-stone-grass-grass"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAZElEQVQ4EWOsqqr6z0ABYKJAL1jrqAEMDOAwuMqwjgGE8QFcalACEZchyOLIbJCFTOgC+FyBLgfSi+ICbYYgdDU4vQazGMUAmCDMFHQ+NnEWmCCMxqUJJo9Oo7gAXZIY/jAwAAA1ARm5W2/NLgAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_stone"],
-    "slots_right": ["s_stone_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_stone_grass"],
+    "slots_top": [
+      "s_full_stone"
+    ],
+    "slots_right": [
+      "s_stone_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_stone_grass"
+    ],
     "weights_top": {
       "stone": 1
     },
@@ -167,16 +253,34 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
-    "friends_right": ["grass-stone-v", "grass-grass-stone-grass"],
-    "friends_bottom": ["stone", "stone-grass-v"],
-    "friends_left": ["grass-stone-v", "grass-grass-grass-stone"],
+    "friends_right": [
+      "grass-stone-v",
+      "grass-grass-stone-grass"
+    ],
+    "friends_bottom": [
+      "stone",
+      "stone-grass-v"
+    ],
+    "friends_left": [
+      "grass-stone-v",
+      "grass-grass-grass-stone"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAZElEQVQ4EWP0r9L4z0ABYKJAL1jrqAEMDOAw0GYIYgBhfACXGpRAxGUIsjgyG2QhE7oAPlegy4H0orjgKsM6dDU4vQazGMUAmCDMFHQ+NnEWmCCMxqUJJo9Oo7gAXZIY/jAwAACyBgro2LM+aAAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_grass_stone"],
-    "slots_bottom": ["s_full_stone"],
-    "slots_left": ["s_grass_stone"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_grass_stone"
+    ],
+    "slots_bottom": [
+      "s_full_stone"
+    ],
+    "slots_left": [
+      "s_grass_stone"
+    ],
     "weights_top": {
       "grass": 1
     },
@@ -193,10 +297,17 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
-    "friends_right": ["grass-stone-v", "grass-grass-stone-grass"],
-    "friends_bottom": ["grass-stone", "grass-stone-grass-grass"],
+    "friends_right": [
+      "grass-stone-v",
+      "grass-grass-stone-grass"
+    ],
+    "friends_bottom": [
+      "grass-stone",
+      "grass-stone-grass-grass"
+    ],
     "friends_left": [
       "grass",
       "stone-grass",
@@ -204,13 +315,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAX0lEQVQ4EWP0r9L4z0ABYKJAL1jrMDCAhVAYaDMEYSi5yrAOLoY3DLBpBulEFsdrANwaPAycXkC2BZt+mDzFLsBqAMx0bDaji2E1AF0RPj5tDADFM3Jck+0CYgyh2AsA0QsLDpP5qqEAAAAASUVORK5CYII=",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_grass_stone"],
-    "slots_bottom": ["s_grass_stone"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_grass_stone"
+    ],
+    "slots_bottom": [
+      "s_grass_stone"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_top": {
       "grass": 1
     },
@@ -227,7 +347,8 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
     "friends_right": [
       "grass",
@@ -236,15 +357,30 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
-    "friends_bottom": ["stone-grass", "stone-grass-grass-grass"],
-    "friends_left": ["grass-stone-v", "grass-grass-grass-stone"],
+    "friends_bottom": [
+      "stone-grass",
+      "stone-grass-grass-grass"
+    ],
+    "friends_left": [
+      "grass-stone-v",
+      "grass-grass-grass-stone"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAV0lEQVQ4EWP0r9L4z0ABYKJAL1jrMDCABTkMtBmC4NyrDOvgbHwMnGEAMgzZQFyGwA3ApZiQQUyEFMBsxmUB3AUwhaTSI8kAXOkCJSFhC0BcGmFqKQ5EAHdICwJLl+/tAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_stone_grass"],
-    "slots_left": ["s_grass_stone"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_stone_grass"
+    ],
+    "slots_left": [
+      "s_grass_stone"
+    ],
     "weights_top": {
       "grass": 1
     },
@@ -254,7 +390,10 @@
   },
   {
     "name": "stone-grass-grass-grass",
-    "friends_top": ["stone-grass", "grass-grass-stone-grass"],
+    "friends_top": [
+      "stone-grass",
+      "grass-grass-stone-grass"
+    ],
     "friends_right": [
       "grass",
       "grass-stone",
@@ -262,7 +401,8 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_bottom": [
       "grass-stone-v",
@@ -271,14 +411,26 @@
       "grass-sand-v",
       "grass-grass-sand-grass",
       "grass-grass-grass-sand",
-      "grass"
+      "grass",
+      "house"
     ],
-    "friends_left": ["stone-grass-v", "grass-stone-grass-grass"],
+    "friends_left": [
+      "stone-grass-v",
+      "grass-stone-grass-grass"
+    ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAYUlEQVQ4EWOsqqr6z4AHXGVYh0eWgYEJrywRkgQN0GYIwmsMQQNAukGG4DKIKAPwOYF+BuCKDcpdADIZl+kwv+OTp9wFhGzBZztILwvMABBNSDGyWhibel6AmUgqPfAuAACD6RAezucDyQAAAABJRU5ErkJggg==",
-    "slots_top": ["s_stone_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_stone_grass"],
+    "slots_top": [
+      "s_stone_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_stone_grass"
+    ],
     "weights_right": {
       "grass": 1
     },
@@ -288,8 +440,14 @@
   },
   {
     "name": "grass-stone-grass-grass",
-    "friends_top": ["grass-stone", "grass-grass-grass-stone"],
-    "friends_right": ["stone-grass-v", "stone-grass-grass-grass"],
+    "friends_top": [
+      "grass-stone",
+      "grass-grass-grass-stone"
+    ],
+    "friends_right": [
+      "stone-grass-v",
+      "stone-grass-grass-grass"
+    ],
     "friends_bottom": [
       "grass",
       "grass-stone-v",
@@ -297,7 +455,8 @@
       "grass-grass-stone-grass",
       "grass-sand-v",
       "grass-grass-sand-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_left": [
       "grass",
@@ -306,13 +465,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAZUlEQVQ4EWP0r9L4z4AHaDME4ZFlYGDCK0uEJAsuNYRshunD6gJiNYMMwWoAzHRi6OFqwFWGdQS9D1IDwjjDAKYAm0nIFuA0AKYRn0EgNTgTEswAGI1sK0wMRBN0AbJibOxhYAAA+owRJvXiOzkAAAAASUVORK5CYII=",
-    "slots_top": ["s_grass_stone"],
-    "slots_right": ["s_stone_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_grass_stone"
+    ],
+    "slots_right": [
+      "s_stone_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_bottom": {
       "grass": 1
     },
@@ -359,10 +527,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAJElEQVQ4EWP8f6XyPwMFgIkCvWCtowYwMIyGwWgYgDLDwKcDAJ51A2saoV0iAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_top": {
       "sand": 1
     },
@@ -385,7 +561,8 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
     "friends_right": [
       "grass-sand-v",
@@ -407,10 +584,18 @@
       "grass-grass-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAcElEQVQ4EWP0r9L4z0ABYKJAL1jrMDCABRYGG6ICYUyGgGXr4Wx0BkwdTA1KGMAEkTWBNMA0wcSR1aEYAFIIk4RpgvFBmmFiMINANOP/K5X/QYqQJdH5yBpgBsLUgw1AVkAqG8ULpGoGqR81gAphAABE0SUBTS7CZgAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_grass_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_grass_sand"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_grass_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_grass_sand"
+    ],
     "weights_bottom": {
       "sand": 1
     },
@@ -441,7 +626,8 @@
       "grass-sand-v",
       "grass-grass-sand-grass",
       "grass-grass-grass-sand",
-      "grass"
+      "grass",
+      "house"
     ],
     "friends_left": [
       "sand-grass-v",
@@ -449,10 +635,18 @@
       "sand-sand-sand-grass"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAYElEQVQ4EWP8f6XyPwMFgIkCvWCtowYwMFAvDAKWrWcAYVwAXQ7GZ0LWuCEqEKwfJoksB5KAicMsAfExvICsCN1AEB9ZHmQQC8w0mGIYH10hTBxdHaN/lcZoUoaFDpk0ALeIJM4rpK0qAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_sand_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_sand_grass"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_sand_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_sand_grass"
+    ],
     "weights_top": {
       "sand": 1
     },
@@ -488,13 +682,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAgklEQVQ4EbWRwQ2AQAgEOWMxdqN+LcWC/GqHmn2QXAwsmxh5HA/YYeHavE+3kbi2lVTNBloViiGgn7ocJ8WEACgA6UEZpbEbKIDUASZW9tEz4olCmQ7dZwcpQLFfOlDWoL/gt2GgcAUIXOTZYe8cAtCEG1Ri9KUARQzAPzcA2aNy8gDAryRtVMMVJQAAAABJRU5ErkJggg==",
-    "slots_top": ["s_grass_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_grass_sand"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_grass_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_grass_sand"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_right": {
       "sand": 1
     },
@@ -516,7 +719,8 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_bottom": [
       "sand-grass",
@@ -533,10 +737,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAhElEQVQ4EaWSwQ2AMAwDW8SA8GUTFuILw7BPkR+WUCgXJPJoVaW+2FVrO9dWoKZth24pA3UzsbQ1c3Af0AOiA4t7QvdSgMTHMvv+Y8cINNkkBPgSgT5FMKi3pwCJ6A1SAIkFH7VQUX7pfjtAgKcrxlsUBMiiIAbpHCv9ByQWLHUQJ8bzBVmwLhhaR91cAAAAAElFTkSuQmCC",
-    "slots_top": ["s_sand_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_sand_grass"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_sand_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_sand_grass"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_left": {
       "sand": 1
     },
@@ -553,7 +765,8 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
     "friends_right": [
       "grass",
@@ -562,7 +775,8 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_bottom": [
       "sand-grass",
@@ -575,10 +789,18 @@
       "sand-grass-sand-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAlklEQVQ4EcWS0Q2AIBBDkTiM26i/bqID+avDuA/mTB4pJocfxsjPlXrtFaHply6FFyu+0F7S/w1ajrBPIzAM63ZhOPa5QUBxhHvjfS+6DHMCGERMh/dqYYAIE6onNj6aCKERKlJesfWxigSQ2qyY71qbdMzVl6iJVAgubgFS61OCqgHTzcQzqhpYEjPBSJOBv/8HTPLqCZ6IL6wILZ1cAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_sand_grass"],
-    "slots_left": ["s_grass_sand"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_sand_grass"
+    ],
+    "slots_left": [
+      "s_grass_sand"
+    ],
     "weights_top": {
       "grass": 1
     },
@@ -600,7 +822,8 @@
       "grass-stone-grass-grass",
       "grass-sand",
       "grass-sand-grass-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_bottom": [
       "grass-stone-v",
@@ -609,7 +832,8 @@
       "grass-sand-v",
       "grass-grass-sand-grass",
       "grass-grass-grass-sand",
-      "grass"
+      "grass",
+      "house"
     ],
     "friends_left": [
       "sand-grass-v",
@@ -617,10 +841,18 @@
       "sand-sand-sand-grass"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAiElEQVQ4Ed2SwQ2AIAxFwTiM26hXN9GBvOow7oPh8EhtaOEsl0/6+z5tQkzPnoJzlvNy3BAG1+0wY2sCnaEn6pogQxok2AzQ0L2tMB91V7BelQlugGy0wsoKemRgCdbWGCRIAxCaw/AIRkcuqIS8Gl5ZofZCrQaIxvmY3K9Mo6VlAquhVf9BwAvDADNRWTwLRwAAAABJRU5ErkJggg==",
-    "slots_top": ["s_sand_grass"],
-    "slots_right": ["s_full_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_sand_grass"],
+    "slots_top": [
+      "s_sand_grass"
+    ],
+    "slots_right": [
+      "s_full_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_sand_grass"
+    ],
     "weights_right": {
       "grass": 1
     },
@@ -647,7 +879,8 @@
       "grass-grass-stone-grass",
       "grass-sand-v",
       "grass-grass-sand-grass",
-      "grass-grass-grass-sand"
+      "grass-grass-grass-sand",
+      "house"
     ],
     "friends_left": [
       "grass",
@@ -656,13 +889,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAi0lEQVQ4EcWQyw2AMAxDW8QwbANcGYWBuMKGIB8sWVE+vdFDf4mfk/T1XN6WrOfYk2hrUxodCLoAdd2uO8W4ACgAUVBE6dkMRgBhBXCsykfOjM2uyBlAGwsrQLJWoHc1TGfARLhadwLdFlTIO06KtI2wBQoh8oSMlwB1g8i+h2ZAN+8sK/BE+vc/4AMRmyzyL5OeYAAAAABJRU5ErkJggg==",
-    "slots_top": ["s_grass_sand"],
-    "slots_right": ["s_sand_grass"],
-    "slots_bottom": ["s_full_grass"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_grass_sand"
+    ],
+    "slots_right": [
+      "s_sand_grass"
+    ],
+    "slots_bottom": [
+      "s_full_grass"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_bottom": {
       "grass": 1
     },
@@ -679,7 +921,8 @@
       "grass-stone-grass-grass",
       "sand-grass-v",
       "sand-grass-grass-grass",
-      "grass-sand-grass-grass"
+      "grass-sand-grass-grass",
+      "house"
     ],
     "friends_right": [
       "grass-sand-v",
@@ -698,13 +941,22 @@
       "stone-grass-grass-grass",
       "sand-grass",
       "grass-grass-sand-grass",
-      "sand-grass-grass-grass"
+      "sand-grass-grass-grass",
+      "house"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAhklEQVQ4EeWSTQqAIBBGNTpMt6m2HaUDta0bFhM9+fAnA5cJMqPje9qQH9fhdA2ja2Bv9A+CY5mdTUa8rvZg2nbYEHWvD7tPorfpQStrDS77AgWBiNRsbdOXfiQAbirFokCBN1nyCTzNBIA8W6XkSROtoAASgDhmBTVIJdUe1GRJD9T+Jb8AA50rzOv9+IsAAAAASUVORK5CYII=",
-    "slots_top": ["s_full_grass"],
-    "slots_right": ["s_grass_sand"],
-    "slots_bottom": ["s_grass_sand"],
-    "slots_left": ["s_full_grass"],
+    "slots_top": [
+      "s_full_grass"
+    ],
+    "slots_right": [
+      "s_grass_sand"
+    ],
+    "slots_bottom": [
+      "s_grass_sand"
+    ],
+    "slots_left": [
+      "s_full_grass"
+    ],
     "weights_top": {
       "grass": 1
     },
@@ -743,10 +995,18 @@
       "water-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAnUlEQVQ4EbWQ0QmAQAxDVRxQf93EhfzVYdxHifAkrXAeiPfTNk3S9tpjn4/mw+s+aC/pfwbDslYtV9zATZR7jXubP1GkbRqvPgJqRB7DBgggZCF9onjBQAAiJwmnJgrTe5wgMJPcVLn37w0EekNEhDLlOUdY2CA38zRMPPZe+MRs5jzP7xMcJK8xCRtIWCNigGL4A2+QvxkWT8CkFE/UI0Wdlk+RqgAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_sand_grass"],
-    "slots_bottom": ["s_sand_grass"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_sand_grass"
+    ],
+    "slots_bottom": [
+      "s_sand_grass"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_top": {
       "sand": 1
     },
@@ -785,10 +1045,18 @@
       "sand-sand-sand-grass"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAApklEQVQ4EaWS3Q2DMAyEQ9Vh2KbtazeBgfpahmEfqgN96GpiEYm8nJ37ibHolnlYyoVzu+BdrWnA8/Ntyq4GuFm19zF1D4ii6f1atWDkCbpTRMSgAEKiRv0+gRqZ3MidUMf57aaUwwTxNfoYTED3GPvm/4AwzMLDBJA1MZzj3w6coGZ09V7DpwG+sJrxNEACPiMiZmHzEglxs+p0iQgzI3y6AwRn+APSozlAG40spwAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_grass_sand"],
-    "slots_left": ["s_sand_grass"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_grass_sand"
+    ],
+    "slots_left": [
+      "s_sand_grass"
+    ],
     "weights_right": {
       "sand": 1
     },
@@ -827,10 +1095,18 @@
       "grass-grass-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAqUlEQVQ4EaWSWw6CMBREW+Ji3I36605gQf7qYtwPZkIOvR2l1NAP7mMeTAn5Mp3n1Div+62BpjQ00Q4w7yVwD090csLW7EJ4u1fYEmLQneD6eKJJ0fRnAhEiiZ4azaoEIkRQr/QZE+IMWrCETBUJjBox4dUVIFFF0GF2sbDVABJVoI6LHM/ze6x+ZQQQfV5sy/PLoEClkwmGZbt0XQYuivP6DeLyn/6wwQfrlkInwM2mMwAAAABJRU5ErkJggg==",
-    "slots_top": ["s_grass_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_grass_sand"],
+    "slots_top": [
+      "s_grass_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_grass_sand"
+    ],
     "weights_right": {
       "sand": 1
     },
@@ -869,10 +1145,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAoElEQVQ4EY2Ruw2AMAxEA2JAaNmEhWhhGPYBHdKTjGMn0Fyc+9g4w31td2l883402FLGJvuDnDJNrzO+dIJzXV4NiMFjFUBnj95IXQVA0FnIGc7i0HsFxExEDYZLzMSYLFYBmBlbNWcZPf8J8CS1NdruOnd3YEOYRHecw1eQAKOEiH131WEABkJAAuBVf3aAQGhFUY22uwOEGYa/kImj+we580OdBXlC/wAAAABJRU5ErkJggg==",
-    "slots_top": ["s_sand_grass"],
-    "slots_right": ["s_grass_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_sand_grass"
+    ],
+    "slots_right": [
+      "s_grass_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_bottom": {
       "sand": 1
     },
@@ -911,10 +1195,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAVUlEQVQ4EWP8f6XyPwMewJhniEeWgYEJrywRkrQ34P+k83jdQXsX4LUeKEmUC/B5gygDQK4AGYLNIBZCTkSXRzeEaBegGwTjjxpAZDqABRg2muJABACzZw/tRvR92gAAAABJRU5ErkJggg==",
-    "slots_top": ["s_sand_water"],
-    "slots_right": ["s_water_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_sand_water"
+    ],
+    "slots_right": [
+      "s_water_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_top": {
       "sand-water": 1,
       "water-water-sand-water": 1
@@ -961,10 +1253,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAATklEQVQ4EWP8f6XyPwMFgIkCvWCtowYwMAx8GLCQE42MeYZwbUQbgKwJrhvIICoMcGkGGUSUAcg2orMJGoDPdvq4AN3J6HyCXkDXgM4HADQvBe/E7wOuAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_sand_water"],
-    "slots_bottom": ["s_sand_water"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_sand_water"
+    ],
+    "slots_bottom": [
+      "s_sand_water"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_right": {
       "sand-water-v": 1,
       "sand-water-water-water": 1
@@ -1011,10 +1311,18 @@
       "sand-sand-sand-water"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAATUlEQVQ4EWP8f6XyPwMFgIkCvWCtowYwMAx8GDAyOK1CSQf/J50nKWYxDIDpJtYgnGHAmGcIMwsvjdMAvLqQJGlrADHeoK0LkLyKkwkAym4NPw46L8EAAAAASUVORK5CYII=",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_water_sand"],
-    "slots_left": ["s_sand_water"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_water_sand"
+    ],
+    "slots_left": [
+      "s_sand_water"
+    ],
     "weights_top": {
       "sand": 1
     },
@@ -1061,10 +1369,18 @@
       "sand-water-sand-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAASElEQVQ4EWNkcFr1nwEP+D/pPB5ZBgYmvLJESA5yAwj5H+RD2nmBGNtBLmABETBArCaYehDNQo4mZANoFwbItuBjj7qACikRAEQMDe8Vs0XZAAAAAElFTkSuQmCC",
-    "slots_top": ["s_water_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_water_sand"],
+    "slots_top": [
+      "s_water_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_water_sand"
+    ],
     "weights_bottom": {
       "sand": 1,
       "sand-water-v": 0
@@ -1087,7 +1403,8 @@
       "water",
       "sand-water-v",
       "sand-water-water-water",
-      "water-sand-water-water"
+      "water-sand-water-water",
+      "boat"
     ],
     "friends_right": [
       "water-sand-v",
@@ -1109,10 +1426,18 @@
       "sand-water-sand-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAWElEQVQ4EWNkcFr1n4ECwESBXrDWUQMYGAY+DFj+TzoPjg7GPEOiYxSmB6QB7gVkQVwmgdSgq2NBVgyTRHcNTBxZLYyNYgBMEJ8GmBoYDfcCTIBUehgYAACa4BZRimHzRwAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_water"],
-    "slots_right": ["s_water_sand"],
-    "slots_bottom": ["s_full_sand"],
-    "slots_left": ["s_water_sand"],
+    "slots_top": [
+      "s_full_water"
+    ],
+    "slots_right": [
+      "s_water_sand"
+    ],
+    "slots_bottom": [
+      "s_full_sand"
+    ],
+    "slots_left": [
+      "s_water_sand"
+    ],
     "weights_top": {
       "water": 1
     },
@@ -1137,7 +1462,8 @@
       "water",
       "water-sand",
       "water-water-water-sand",
-      "water-sand-water-water"
+      "water-sand-water-water",
+      "boat"
     ],
     "friends_bottom": [
       "sand-water",
@@ -1154,10 +1480,18 @@
       "sand-sand-grass-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAXklEQVQ4EbWQsQ3AIAwETTZiMfqskcVo2MdAavychHD7/vPJydvrJiaVLFKzR6YglIDd9ckPAaQsAcD+X1ka0Ov3DKj+PQP/KpZYPhG3x2IIoBYhgFpIALGQAGJxDOg9ZA0Lt8lfHgAAAABJRU5ErkJggg==",
-    "slots_top": ["s_sand_water"],
-    "slots_right": ["s_full_water"],
-    "slots_bottom": ["s_sand_water"],
-    "slots_left": ["s_full_sand"],
+    "slots_top": [
+      "s_sand_water"
+    ],
+    "slots_right": [
+      "s_full_water"
+    ],
+    "slots_bottom": [
+      "s_sand_water"
+    ],
+    "slots_left": [
+      "s_full_sand"
+    ],
     "weights_right": {
       "water": 1
     },
@@ -1191,7 +1525,8 @@
       "water",
       "water-water-water-sand",
       "water-water-sand-water",
-      "water-sand-v"
+      "water-sand-v",
+      "boat"
     ],
     "friends_left": [
       "sand-water-v",
@@ -1199,10 +1534,18 @@
       "water-sand-water-water"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAVElEQVQ4EWP8f6XyPwMFgIkCvWCtw8AAFnxhwJhniCL9f9J5FD6Ig9UAdI0wXTBxZINQAhGkAKYIpgkbjayGkcFp1Wg6wBZKJIihxAIJ+uBKB94AAARIDdlsq/8KAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_sand"],
-    "slots_right": ["s_sand_water"],
-    "slots_bottom": ["s_full_water"],
-    "slots_left": ["s_sand_water"],
+    "slots_top": [
+      "s_full_sand"
+    ],
+    "slots_right": [
+      "s_sand_water"
+    ],
+    "slots_bottom": [
+      "s_full_water"
+    ],
+    "slots_left": [
+      "s_sand_water"
+    ],
     "weights_bottom": {
       "water": 1
     },
@@ -1241,13 +1584,22 @@
       "water",
       "water-water-sand-water",
       "sand-water-water-water",
-      "sand-water"
+      "sand-water",
+      "boat"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAT0lEQVQ4EWNkcFr1nwEP+D/pPB5ZBgYmvLJESNLeAMY8Q7zuoL0LQNbjcwV9XIDPFfRzAa6ooJ8LcCVp+rgAl+2gcCHoAnyaiTIAV+jDxAFOpw1rXTn07AAAAABJRU5ErkJggg==",
-    "slots_top": ["s_water_sand"],
-    "slots_right": ["s_full_sand"],
-    "slots_bottom": ["s_water_sand"],
-    "slots_left": ["s_full_water"],
+    "slots_top": [
+      "s_water_sand"
+    ],
+    "slots_right": [
+      "s_full_sand"
+    ],
+    "slots_bottom": [
+      "s_water_sand"
+    ],
+    "slots_left": [
+      "s_full_water"
+    ],
     "weights_left": {
       "water": 1
     },
@@ -1267,7 +1619,8 @@
       "water",
       "sand-water-water-water",
       "water-sand-water-water",
-      "sand-water-v"
+      "sand-water-v",
+      "boat"
     ],
     "friends_right": [
       "water-sand-v",
@@ -1283,13 +1636,22 @@
       "water",
       "water-water-sand-water",
       "sand-water-water-water",
-      "sand-water"
+      "sand-water",
+      "boat"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAS0lEQVQ4EWNkcFr1n4ECwESBXrDWUQMYGIZBGLCQkw7+TzoP10aSAcgaYSYQHYjYNIMMIdoAmI3oNFEG4LKdKBfg00yUAehORucDAPRJDe/WK3jAAAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_water"],
-    "slots_right": ["s_water_sand"],
-    "slots_bottom": ["s_water_sand"],
-    "slots_left": ["s_full_water"],
+    "slots_top": [
+      "s_full_water"
+    ],
+    "slots_right": [
+      "s_water_sand"
+    ],
+    "slots_bottom": [
+      "s_water_sand"
+    ],
+    "slots_left": [
+      "s_full_water"
+    ],
     "weights_right": {
       "water-sand-v": 1,
       "water-sand-sand-sand": 1
@@ -1311,13 +1673,15 @@
       "water",
       "sand-water-water-water",
       "water-sand-water-water",
-      "sand-water-v"
+      "sand-water-v",
+      "boat"
     ],
     "friends_right": [
       "water",
       "water-sand-water-water",
       "water-water-water-sand",
-      "water-sand"
+      "water-sand",
+      "boat"
     ],
     "friends_bottom": [
       "sand-water",
@@ -1330,10 +1694,18 @@
       "water-water-water-sand"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAATElEQVQ4EWNkcFr1n4ECwESBXrDWUQMYGAZBGPyfdJ4BhMkFcC+QawjcAJALyHENigEwb5DiGqwGwAwihsZpALGuwGkAMbaD1FBsAAAR4RKrXfIhyQAAAABJRU5ErkJggg==",
-    "slots_top": ["s_full_water"],
-    "slots_right": ["s_full_water"],
-    "slots_bottom": ["s_sand_water"],
-    "slots_left": ["s_water_sand"],
+    "slots_top": [
+      "s_full_water"
+    ],
+    "slots_right": [
+      "s_full_water"
+    ],
+    "slots_bottom": [
+      "s_sand_water"
+    ],
+    "slots_left": [
+      "s_water_sand"
+    ],
     "weights_top": {
       "water": 1
     },
@@ -1360,13 +1732,15 @@
       "water",
       "water-sand-water-water",
       "water-water-water-sand",
-      "water-sand"
+      "water-sand",
+      "boat"
     ],
     "friends_bottom": [
       "water",
       "water-water-sand-water",
       "water-water-water-sand",
-      "water-sand-v"
+      "water-sand-v",
+      "boat"
     ],
     "friends_left": [
       "sand-water-v",
@@ -1374,10 +1748,18 @@
       "water-sand-water-water"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAXElEQVQ4EWP8f6XyPwMewJhniEeWgYEJrywRkngNIGQ7yHycBhCjGa8BRLgerASrC4i1HWQCC7JNpGiE6WNkcFqFNxphCnHRWL2ASzE28VED8KREbAGGTWzgAxEA1ecId2BXE/AAAAAASUVORK5CYII=",
-    "slots_top": ["s_sand_water"],
-    "slots_right": ["s_full_water"],
-    "slots_bottom": ["s_full_water"],
-    "slots_left": ["s_sand_water"],
+    "slots_top": [
+      "s_sand_water"
+    ],
+    "slots_right": [
+      "s_full_water"
+    ],
+    "slots_bottom": [
+      "s_full_water"
+    ],
+    "slots_left": [
+      "s_sand_water"
+    ],
     "weights_bottom": {
       "water": 1
     },
@@ -1409,19 +1791,29 @@
       "water",
       "water-water-sand-water",
       "water-water-water-sand",
-      "water-sand-v"
+      "water-sand-v",
+      "boat"
     ],
     "friends_left": [
       "water",
       "sand-water-water-water",
       "water-water-sand-water",
-      "sand-water"
+      "sand-water",
+      "boat"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAASUlEQVQ4EWNkcFr1n4EA+D/pPE4VTDhliJSgjwGMeYY43UMfF4Csx+UKRmJiAd39yLFClheQXUOWC5BdRJYLRg1ADgEGhoEPRAB5xgx/z5a7UgAAAABJRU5ErkJggg==",
-    "slots_top": ["s_water_sand"],
-    "slots_right": ["s_sand_water"],
-    "slots_bottom": ["s_full_water"],
-    "slots_left": ["s_full_water"],
+    "slots_top": [
+      "s_water_sand"
+    ],
+    "slots_right": [
+      "s_sand_water"
+    ],
+    "slots_bottom": [
+      "s_full_water"
+    ],
+    "slots_left": [
+      "s_full_water"
+    ],
     "weights_left": {
       "water": 1
     },
@@ -1443,31 +1835,43 @@
       "water",
       "water-sand-water-water",
       "sand-water-water-water",
-      "sand-water-v"
+      "sand-water-v",
+      "boat"
     ],
     "friends_right": [
       "water",
       "water-sand-water-water",
       "water-water-water-sand",
-      "water-sand"
+      "water-sand",
+      "boat"
     ],
     "friends_bottom": [
       "water",
       "water-water-sand-water",
       "water-water-water-sand",
-      "water-sand-v"
+      "water-sand-v",
+      "boat"
     ],
     "friends_left": [
       "water",
       "sand-water-water-water",
       "water-water-sand-water",
-      "sand-water"
+      "sand-water",
+      "boat"
     ],
     "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAJElEQVQ4EWNkcFr1n4ECwESBXrDWUQMYGEbDYDQMQJlh4NMBAAm6Aguhg8N6AAAAAElFTkSuQmCC",
-    "slots_top": ["s_full_water"],
-    "slots_right": ["s_full_water"],
-    "slots_bottom": ["s_full_water"],
-    "slots_left": ["s_full_water"],
+    "slots_top": [
+      "s_full_water"
+    ],
+    "slots_right": [
+      "s_full_water"
+    ],
+    "slots_bottom": [
+      "s_full_water"
+    ],
+    "slots_left": [
+      "s_full_water"
+    ],
     "weights_right": {
       "water": 1
     },
@@ -1479,6 +1883,182 @@
     },
     "weights_bottom": {
       "water": 1
+    }
+  },
+  {
+    "name": "house",
+    "friends_top": [
+      "house",
+      "grass",
+      "stone-grass-v",
+      "stone-grass-grass-grass",
+      "grass-stone-grass-grass",
+      "sand-grass-v",
+      "sand-grass-grass-grass",
+      "grass-sand-grass-grass",
+      "church"
+    ],
+    "friends_right": [
+      "house",
+      "grass",
+      "grass-stone",
+      "grass-grass-grass-stone",
+      "grass-stone-grass-grass",
+      "grass-sand",
+      "grass-sand-grass-grass",
+      "grass-grass-grass-sand",
+      "church"
+    ],
+    "friends_bottom": [
+      "house",
+      "grass",
+      "grass-stone-v",
+      "grass-grass-grass-stone",
+      "grass-grass-stone-grass",
+      "grass-sand-v",
+      "grass-grass-sand-grass",
+      "grass-grass-grass-sand",
+      "church"
+    ],
+    "friends_left": [
+      "house",
+      "grass",
+      "stone-grass",
+      "grass-grass-stone-grass",
+      "stone-grass-grass-grass",
+      "sand-grass",
+      "grass-grass-sand-grass",
+      "sand-grass-grass-grass",
+      "church"
+    ],
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAO5JREFUOE9j9K/S+M9AAWCkqQHB01+C3cb+7x/DsmxJrO7EcEHU1OcMP5mYwJpANDIAiYEAsmFwA2AaCQUHuiEoLvC7/4SQfrD8JkUZuDoMA/4zsTLwskGcCgKffyG8ARL/8uMvfgN4OJgZXoQuA2vmXhoDpkEaQQYRZQDIBV+jl4A1SqyOgrsC5iqSXAAyAGTzN1ELsEFcr08wMP77zTD7Lx+DuAofWAwjDEBeANkComHgJb8VmCn+8RhYDqsBL+98Ykhl/gTXCPMzSCNJBmCLx6/itpBAfXkYTOP0AsgVxACY/zHCgBjN6Goozo0AAc+REeMOzbwAAAAASUVORK5CYII=",
+    "slots_top": [
+      "s_full_grass",
+      "s_house"
+    ],
+    "slots_right": [
+      "s_full_grass",
+      "s_house"
+    ],
+    "slots_bottom": [
+      "s_full_grass",
+      "s_house"
+    ],
+    "slots_left": [
+      "s_full_grass",
+      "s_house"
+    ],
+    "weights_top": {
+      "house": 1
+    },
+    "weights_right": {
+      "house": 1
+    },
+    "weights_bottom": {
+      "house": 1
+    },
+    "weights_left": {
+      "house": 1
+    }
+  },
+  {
+    "name": "church",
+    "friends_top": [
+      "house",
+      "church"
+    ],
+    "friends_right": [
+      "house",
+      "church"
+    ],
+    "friends_bottom": [
+      "house",
+      "church"
+    ],
+    "friends_left": [
+      "house",
+      "church"
+    ],
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAJRJREFUOE9j9K/S+M9AAWDEZ4DQc0uGd5LH8RqP0wCQ5idPnjDIyMjgNQSrATDN0+p5GLIav+A1BKsB307LMoA0wwDIEC7Tx1i9gtMAkGqYC0Bs+hiAHHDY3AsKVHSXoHgB5HdCgKABoGjDBYhyAciA21xiDKrfXoHNAWkCAZA4/QxA9gJZLiDbAEIxgE0eb24kxkAA90V+EbEQVrwAAAAASUVORK5CYII=",
+    "slots_top": [
+      "s_house"
+    ],
+    "slots_right": [
+      "s_house"
+    ],
+    "slots_bottom": [
+      "s_house"
+    ],
+    "slots_left": [
+      "s_house"
+    ],
+    "weights_top": {
+      "church": -1
+    },
+    "weights_right": {
+      "church": -1
+    },
+    "weights_bottom": {
+      "church": -1
+    },
+    "weights_left": {
+      "church": -1
+    }
+  },
+  {
+    "name": "boat",
+    "friends_top": [
+      "sand-water-v",
+      "sand-water-water-water",
+      "water-sand-water-water",
+      "water",
+      "boat"
+    ],
+    "friends_right": [
+      "water-sand",
+      "water-water-water-sand",
+      "water-sand-water-water",
+      "water",
+      "boat"
+    ],
+    "friends_bottom": [
+      "water-sand-v",
+      "water-water-water-sand",
+      "water-water-sand-water",
+      "water",
+      "boat"
+    ],
+    "friends_left": [
+      "sand-water",
+      "water-water-sand-water",
+      "sand-water-water-water",
+      "water",
+      "boat"
+    ],
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAKxJREFUOE9jZHBa9Z+BAsBIEwPmSGYw2NYdZ1DPvEjQbVhdADMApJuQIQQNIGQIUQbgM4RoA3AZQrQBuMICbECXYBaDEMc/giH+7gcTXN37H4wMpe+nM8BdQMgQkAZBDkiag2kGsVEMwOcERgZEggXZDANwAwoY0/B6YcKnKoQ8rwKmAQyfHxAMA7ACJM0oXgBL4jMETSOGF+DWIxuCQxOyUzHTAcgAIjTCDAEAB05XwZNwbT0AAAAASUVORK5CYII=",
+    "slots_top": [
+      "s_full_water"
+    ],
+    "slots_right": [
+      "s_full_water"
+    ],
+    "slots_bottom": [
+      "s_full_water"
+    ],
+    "slots_left": [
+      "s_full_water"
+    ],
+    "weights_top": {
+      "boat": -1
+    },
+    "weights_right": {
+      "boat": -1
+    },
+    "weights_bottom": {
+      "boat": -1
+    },
+    "weights_left": {
+      "boat": -1
     }
   }
 ]

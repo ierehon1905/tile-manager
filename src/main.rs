@@ -1,14 +1,13 @@
 mod generator_loop;
-use base64::{engine::general_purpose, Engine as _};
-use image::GenericImageView;
+use base64::Engine as _;
 
-use std::{
-    collections::{BTreeMap, BTreeSet, HashMap},
-    ops::Deref,
-};
+use std::collections::{BTreeMap, HashMap};
 
 use generator_loop::generator_loop;
-use macroquad::prelude::*;
+use macroquad::{
+    prelude::*,
+    ui::{root_ui, Skin},
+};
 use nanoserde::{DeJson, SerJson, SerJsonState};
 
 const TILE_SIZE: f32 = 16.0;
@@ -50,7 +49,7 @@ impl DeJson for HexColor {
 }
 
 impl SerJson for HexColor {
-    fn ser_json(&self, d: usize, s: &mut SerJsonState) {
+    fn ser_json(&self, _d: usize, s: &mut SerJsonState) {
         let hex = format!(
             "#{:02x}{:02x}{:02x}",
             self.0 as u8, self.1 as u8, self.2 as u8
@@ -135,10 +134,31 @@ async fn main() {
 
     let mut play_mode = false;
 
+    let label_style = root_ui().style_builder().font_size(40).build();
+    // root_ui().default_skin().
+    // root_ui().default_skin().button_style
+    let button_style = root_ui()
+        .style_builder()
+        .font_size(40)
+        .color(color_u8!(150, 150, 150, 255))
+        .color_hovered(color_u8!(180, 180, 180, 255))
+        .color_clicked(color_u8!(200, 200, 200, 255))
+        .build();
+
+    let custom_skin = Skin {
+        label_style,
+        button_style,
+        ..root_ui().default_skin().clone()
+    };
+
     loop {
         clear_background(WHITE);
 
+        root_ui().push_skin(&custom_skin);
+
         generator_loop(&mut board, &tiles, &images, &all_tile_ids, &mut play_mode).await;
+
+        root_ui().pop_skin();
 
         next_frame().await
     }
